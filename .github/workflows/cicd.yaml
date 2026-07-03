@@ -7,6 +7,7 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    # Added steps to set the short SHA as an output variable for use in the Docker image tap
     outputs:
       short-sha: ${{ steps.set_sha.outputs.short_sha }}
     steps:
