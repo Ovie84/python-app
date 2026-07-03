@@ -8,11 +8,13 @@ def info():
     return jsonify({
         'time': datetime.datetime.now().strftime("%Y%m%d %H:%M:%S"),
         'hostname': socket.gethostname(),
+        # Added environment variable which is not visible in git status
+        'env': 'dev'
     })
 
 @app.route('/api/v1/healthz')
 def health():
-    return jsonify({'status?': 'up!, mofo'}), 200
+    return jsonify({'status?': 'up!, mofo', 'env': 'dev'}), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
