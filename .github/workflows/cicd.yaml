@@ -7,9 +7,15 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    outputs:
+      short-sha: ${{ steps.set_sha.outputs.short_sha }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Set Short SHA
+        id: set_sha
+        run: echo "short_sha=${{ github.sha }} | cut -cl-7" >> $GITHUB_OUTPUT 
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -25,4 +31,4 @@ jobs:
           push: true
           # We use the GitHub SHA to create a unique tag for each build,
           # ensuring that we can trace back to the exact commit that produced the image.
-          tags: ${{ secrets.DOCKER_USERNAME}}/python-app:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME}}/python-app:${{ steps.set_sha.outputs.short_sha }}
