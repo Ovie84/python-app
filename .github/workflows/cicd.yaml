@@ -32,4 +32,4 @@ jobs:
           push: true
           # We use the GitHub SHA to create a unique tag for each build,
           # ensuring that we can trace back to the exact commit that produced the image.
-          tags: ${{ secrets.DOCKER_USERNAME}}/python-app:${{ steps.set_sha.outputs.short_sha }}
+          tags: ${{ secrets.DOCKER_USERNAME}}/python-app:$( steps.set_sha.outputs.short_sha ) 
