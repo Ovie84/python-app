@@ -20,6 +20,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
+        # Forcing a fresh commit to trigger Github Actions 
           context: .
           push: true
           # We use the GitHub SHA to create a unique tag for each build,
