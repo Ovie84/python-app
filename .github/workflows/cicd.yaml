@@ -45,28 +45,28 @@ jobs:
           # Forcing a change again, shortening the SHA to 7 characters for brevity in the Docker tag.
 
 
-  # update-manifest:
-  #   needs: build-and-push
-  #   runs-on: ubuntu-latest  
-  #   steps:
-  #     - name: Checkout Infrastructure Repository
-  #       uses: actions/checkout@v4
-  #       with: 
-  #         repository: Ovie84/infro-repo
-  #         token: ${{ secrets.INFRA_REPO_TOKEN}}
-  #         path: infra-repo
+  update-manifest:
+    needs: build-and-push
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout Infrastructure Repository
+        uses: actions/checkout@v4
+        with: 
+          repository: Ovie84/infro-repo
+          token: ${{ secrets.INFRA_REPO_TOKEN }}
+          path: infra-repo
 
-  #     - name: Update Image Tag in Helm Values
-  #       run: |
-  #         cd infra-repo
-  #         # Using the short SHA passed from the previous job to update the Helm values file with the new Docker image tag.
-  #         yq -i ".image.tag = \"${{ needs.build-and-push.outputs.short_sha }}\"" helm-charts/python-app/values.yaml
+      - name: Update Image Tag in Helm Values
+        run: |
+          cd infra-repo
+          # Using the short SHA passed from the previous job to update the Helm values file with the new Docker image tag.
+          yq -i ".image.tag = \"${{ needs.build-and-push.outputs.short_sha }}\"" helm-charts/python-app/values.yaml
 
-  #     - name: Commit and Push to Infra Repo!
-  #       run: |
-  #         cd infra-repo
-  #         git config user.name "GitHub Actions"
-  #         git config user.email "actions@github.com"
-  #         git add .
-  #         git commit -m "Deploying image tag ${{ needs.build-and-push.outputs.short_sha }} to Helm values"
-  #         git push origin main
+      - name: Commit and Push to Infra Repo!
+        run: |
+          cd infra-repo
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Deploying image tag ${{ needs.build-and-push.outputs.short_sha }} to Helm values"
+          git push origin main
