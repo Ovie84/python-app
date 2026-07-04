@@ -34,9 +34,11 @@ jobs:
           # ensuring that we can trace back to the exact commit that produced the image.
           # tags: ${{ secrets.DOCKER_USERNAME }}/python-app:${{ steps.set_sha.outputs.short_sha }} 
           # tags: ovie2604/python-app:${{ steps.set_sha.outputs.short_sha }} 
-          tags: ovie2604/python-app:${{ env.GITHUB_SHA::7 }}
-          cache-from: type=gha
-          cache-to: type-gha,mode=max
+          # tags: ovie2604/python-app:${{ env.GITHUB_SHA::7 }}
+          # cache-from: type=gha
+          # cache-to: type-gha,mode=max
+          # tags: ovie2604/python-app:${{ env.GITHUB_SHA }}  
+          tags: ovie2604/python-app:latest
 
 
 
