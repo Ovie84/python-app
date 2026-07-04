@@ -52,7 +52,7 @@ jobs:
       - name: Checkout Infrastructure Repository
         uses: actions/checkout@v4
         with: 
-          repository: Ovie84/infro-repo
+          repository: Ovie84/infra-repo
           token: ${{ secrets.INFRA_REPO_TOKEN }}
           path: infra-repo
 
